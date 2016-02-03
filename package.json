@@ -1,0 +1,34 @@
+{
+  "name": "connect_four",
+  "version": "0.0.1",
+  "description": "play connect four in the browser!",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "guardianjs": "^0.1.2",
+    "guardian-runner": "0.0.5"
+  },
+  "scripts": {
+    "test": "node node_modules/guardian-runner start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkoehring/connect_four.git"
+  },
+  "keywords": [
+    "game",
+    "connect_four",
+    "web",
+    "javascript"
+  ],
+  "author": "Norman Köhring",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nkoehring/connect_four/issues"
+  },
+  "homepage": "https://github.com/nkoehring/connect_four#readme"
+}
