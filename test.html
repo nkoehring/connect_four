@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Connect Four – unconventional testsuite</title>
+</head>
+<body>
+  <script type="text/javascript" src="/lib/include-min.js"></script>
+  <script type="text/javascript" src="/lib/klud.js"></script>
+  <script type="text/javascript">
+    include("test", ["test.column", "test.board"], function(columnTest, boardTest) {
+      columnTest.run()
+      boardTest.run()
+    })
+  </script>
+</body>
+</html>
+

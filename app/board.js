@@ -50,7 +50,7 @@ include('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
     set player_two(two) {
 
       if (isValidPlayer(two)) {
-        this._players[0] = two
+        this._players[1] = two
       }
 
     },

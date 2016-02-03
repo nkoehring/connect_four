@@ -8,13 +8,6 @@
   },
   "dependencies": {
   },
-  "devDependencies": {
-    "guardianjs": "^0.1.2",
-    "guardian-runner": "0.0.5"
-  },
-  "scripts": {
-    "test": "node node_modules/guardian-runner start"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nkoehring/connect_four.git"

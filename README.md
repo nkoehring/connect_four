@@ -18,18 +18,14 @@ requirements are included.
 
 ## testing
 
-To run the tests, install all needed dependencies first and then run them via
-`npm`:
-
-```
-npm install
-npm test
-```
+To run the tests, open `test.html`.
 
 ## external libraries
 
 Because *requirejs and co* seem way to much I decided to use [include.js from Jérémy
 Barbe](https://github.com/CapMousse/include.js).
+
+I use [kludjs](https://bitbucket.org/zserge/klud.js/) for testing.
 
 ## about
 
