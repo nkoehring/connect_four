@@ -1,4 +1,4 @@
-var Column = (function() {
+include('app.column', function() {
 
   var HEIGHT = 6
 
@@ -52,6 +52,4 @@ var Column = (function() {
 
   return Column
 
-})()
-
-exports.Column = Column
+})

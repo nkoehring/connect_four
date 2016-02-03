@@ -1,8 +1,6 @@
-var Board = (function() {
+include('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
-  var Column = require('./column').Column,
-      Toolkit = require('./toolkit').Toolkit,
-      isValidPlayer = Toolkit.isValidPlayer,
+  var isValidPlayer = Toolkit.isValidPlayer,
       isValidCallback = Toolkit.isValidCallback
 
   var WIDTH = 7
@@ -105,7 +103,4 @@ var Board = (function() {
 
   return Board
 
-})()
-
-exports.Board = Board
-
+})
