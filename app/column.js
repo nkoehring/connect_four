@@ -1,16 +1,14 @@
 define('app.column', function() {
 
-  var HEIGHT = 6
-
-
-  function Column() {
+  function Column(height) {
+    this._height = height
     this._slots = []
   }
 
   Column.prototype = {
 
     get full() {
-      return this._slots.length >= HEIGHT
+      return this._slots.length >= this._height
     },
 
     get length() {
@@ -24,7 +22,7 @@ define('app.column', function() {
       // game to columns of length 1000
       var output = this._slots.slice()
 
-      while(output.length < HEIGHT) {
+      while(output.length < this._height) {
         output.push(null)
       }
 
