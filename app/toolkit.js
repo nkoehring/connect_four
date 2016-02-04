@@ -1,4 +1,4 @@
-include('app.toolkit', function() {
+define('app.toolkit', function() {
 
   function isValidPlayer(player) {
     //TODO: good enough for type check?

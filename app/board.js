@@ -1,4 +1,4 @@
-include('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
+define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
   var isValidPlayer = Toolkit.isValidPlayer,
       isValidCallback = Toolkit.isValidCallback

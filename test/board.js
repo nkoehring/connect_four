@@ -1,4 +1,4 @@
-include('test.board', ['app.board'], function(Board) {
+define('test.board', ['app.board'], function(Board) {
 
   function run() {
 

@@ -8,7 +8,7 @@
   <script type="text/javascript" src="/lib/include-min.js"></script>
   <script type="text/javascript" src="/lib/klud.js"></script>
   <script type="text/javascript">
-    include("test", ["test.column", "test.board"], function(columnTest, boardTest) {
+    include(["test.column", "test.board"], function(columnTest, boardTest) {
       columnTest.run()
       boardTest.run()
     })

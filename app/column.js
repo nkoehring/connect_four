@@ -1,4 +1,4 @@
-include('app.column', function() {
+define('app.column', function() {
 
   var HEIGHT = 6
 

@@ -1,4 +1,4 @@
-include('test.column', ['app.column'], function(Column) {
+define('test.column', ['app.column'], function(Column) {
 
   function run() {
 
