@@ -3,24 +3,33 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
   var isValidPlayer = Toolkit.isValidPlayer,
       isValidCallback = Toolkit.isValidCallback
 
-  var WIDTH = 7
 
+  function Board(width, height) {
 
-  function Board() {
+    this._width = width
+    this._height = height
 
-    this._columns = new Array(WIDTH)
+    this._columns = new Array(width)
     //TODO: more attributes needed per player?
     this._players = ["red", "blue"]
     this._current_player_index = 0
     this._winning_callback
 
-    for(var i = 0; i < WIDTH; i++) {
-      this._columns[i] = new Column
+    for(var i = 0; i < width; i++) {
+      this._columns[i] = new Column(height)
     }
 
   }
 
   Board.prototype = {
+
+    get width() {
+      return this._width
+    },
+
+    get height() {
+      return this._height
+    },
 
     get columns() {
       // just return a copy of the original columns array
