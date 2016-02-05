@@ -14,6 +14,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
     this._players = ["red", "blue"]
     this._current_player_index = 0
     this._winning_callback
+    this._move_callback
 
     for(var i = 0; i < width; i++) {
       this._columns[i] = new Column(height)
@@ -76,9 +77,22 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     },
 
-    move: function(column) {
+    get move_callback() {
+      return this._move_callback
+    },
 
-      var column = this._columns[column]
+    set move_callback(cb) {
+
+      if (isValidCallback(cb)) {
+        this._move_callback = cb
+      }
+
+    },
+
+    move: function(column_index) {
+
+      var column = this._columns[column_index],
+          used_slots
 
       // do not do anything if move is invalid
       if (!column || column.full) {
@@ -86,25 +100,20 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
         return false
       }
 
-      column.insert(this.current_player)
+      used_slots = column.insert(this.current_player)
 
       // switch to other player
       this._current_player_index = (this._current_player_index + 1) % 2
 
+      if(this._move_callback && this._move_callback.call) {
+        this._move_callback(
+          column_index,
+          this._height - used_slots,
+          this.current_player
+        )
+      }
+
       return this.current_player
-
-    },
-
-    //DEBUG
-    inspect: function() {
-
-      var output = ""
-
-      this._columns.map(function(col,i) {
-        output += col.inspect() + "\n"
-      })
-
-      return output
 
     }
 

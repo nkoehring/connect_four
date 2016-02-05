@@ -22,7 +22,7 @@
   background-size: contain; /* slot.png is 256x256 for hires screens */
 }
 
-#container .token {
+.token {
   position: absolute;
   transition: top 1s ease-in;
   top: 0;

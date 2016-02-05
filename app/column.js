@@ -39,11 +39,6 @@ define('app.column', function() {
       this._slots.push(player)
       return this._slots.length
 
-    },
-
-    //DEBUG
-    inspect: function() {
-      return this._slots.join("|")
     }
 
   }

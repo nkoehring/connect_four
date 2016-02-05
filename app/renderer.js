@@ -1,16 +1,23 @@
 define("app.renderer", function() {
 
+
+  function getSlot(m, n) {
+
+    columnQuery = "#container .board .column:nth-child(" + (m + 1) + ")"
+    slotQuery = columnQuery + " .slot:nth-child(" + (n + 1) + ")"
+
+    return document.querySelector(slotQuery)
+
+  }
+
+
   function createTokenDOM(column, slot, color) {
     var token = document.createElement("div"),
-        column_el,
         slot_el
 
     token.className = "token"
-    columnQuery = "#container .board .column:nth-child(" + (column + 1) + ")"
-    slotQuery = columnQuery + " .slot:nth-child(" + (slot + 1) + ")"
 
-    slot_el = document.querySelector(slotQuery)
-
+    slot_el = getSlot(column, slot)
     offset_left = slot_el.offsetLeft + "px"
     offset_top = slot_el.offsetTop + "px"
 
@@ -64,19 +71,28 @@ define("app.renderer", function() {
 
   function Renderer(container, board) {
 
-    this._template = {
-      board: document.createElement("div"),
-      column: document.createElement("div"),
-      slot: document.createElement("div")
-    }
-
-    this._template.board.className = "board"
-    this._template.column.className = "column"
-    this._template.slot.className = "slot"
+    var self = this
 
     this._container = container
     this._board = board
-    this._first = true    // is this the first render step?
+
+    this.renderBoard = function() {
+
+      self._board_el = createBoardDOM(self.width, self.height)
+      self._container.appendChild(self._board_el)
+
+    }
+
+    this.renderToken = function(column, slot, color) {
+
+      var board_el = self._board_el,
+          token = createTokenDOM(column, slot, color)
+
+      self._container.insertBefore(token, board_el)
+
+    }
+
+    this.renderBoard()
 
   }
 
@@ -92,27 +108,6 @@ define("app.renderer", function() {
 
     get container() {
       return this._container
-    },
-
-    _preRender: function() {
-
-      this._board_el = createBoardDOM(this.width, this.height)
-      this._container.appendChild(this._board_el)
-
-    },
-
-    render: function() {
-
-      if (this._first) {
-        this._preRender()
-        this._first = false
-      }
-
-      var board = this._board,
-          board_el = this._board_el
-
-      board_el.insertBefore(createTokenDOM(0, 5, "#F66"), board_el.firstChild)
-
     }
 
   }
