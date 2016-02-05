@@ -105,7 +105,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       // switch to other player
       this._current_player_index = (this._current_player_index + 1) % 2
 
-      if(this._move_callback && this._move_callback.call) {
+      if(this._move_callback) {
         this._move_callback(
           column_index,
           this._height - used_slots,
