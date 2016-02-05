@@ -24,7 +24,7 @@
 
 #container .token {
   position: absolute;
-  transition: top 1s ease-out;
+  transition: top 1s ease-in;
   top: 0;
   left: 0;
   width: 110px;
