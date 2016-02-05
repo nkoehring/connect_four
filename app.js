@@ -1,6 +1,10 @@
 include(['app.board', 'app.renderer'], function(Board, Renderer) {
 
+  var COLUMN_COUNT = 7,
+      COLUMN_HEIGHT = 6
+
   var container = document.getElementById("container"),
+      presentation_mode = true,
       renderer,
       board
 
@@ -12,17 +16,28 @@ include(['app.board', 'app.renderer'], function(Board, Renderer) {
 
   }
 
-  board = new Board(7,6)
+  board = new Board(COLUMN_COUNT, COLUMN_HEIGHT)
   renderer = new Renderer(container, board)
 
   board.move_callback = renderer.renderToken
+  board.clear_callback = renderer.resetBoard
 
-  setTimeout(function() { board.move(3) }, 1000)
-  setTimeout(function() { board.move(2) }, 2000)
-  setTimeout(function() { board.move(3) }, 3000)
-  setTimeout(function() { board.move(1) }, 4000)
-  setTimeout(function() { board.move(0) }, 5000)
-  setTimeout(function() { board.move(0) }, 6000)
+  function presentationStep() {
+
+    if(board.full) {
+      board.clear()
+    }
+
+    var next_column = Math.round(Math.random()*10) % COLUMN_COUNT
+    board.move(next_column)
+    
+    if(presentation_mode) {
+      setTimeout(function() { presentationStep() }, 500)
+    }
+
+  }
+
+  presentationStep()
 
 })
 

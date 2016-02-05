@@ -15,6 +15,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
     this._current_player_index = 0
     this._winning_callback
     this._move_callback
+    this._clear_callback
 
     for(var i = 0; i < width; i++) {
       this._columns[i] = new Column(height)
@@ -89,6 +90,22 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     },
 
+    get clear_callback() {
+      return this._clear_callback
+    },
+
+    set clear_callback(cb) {
+
+      if (isValidCallback(cb)) {
+        this._clear_callback = cb
+      }
+
+    },
+
+    get full() {
+      return this._columns.every(function(column) { return column.full })
+    },
+
     move: function(column_index) {
 
       var column = this._columns[column_index],
@@ -105,7 +122,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       // switch to other player
       this._current_player_index = (this._current_player_index + 1) % 2
 
-      if(this._move_callback) {
+      if (this._move_callback) {
         this._move_callback(
           column_index,
           this._height - used_slots,
@@ -114,6 +131,18 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       }
 
       return this.current_player
+
+    },
+
+    clear: function() {
+
+      this._columns.forEach(function(column) {
+        column.clear()
+      })
+
+      if (this._clear_callback) {
+        this._clear_callback()
+      }
 
     }
 

@@ -12,23 +12,23 @@ define("app.renderer", function() {
 
 
   function createTokenDOM(column, slot, color) {
-    var token = document.createElement("div"),
+    var token_el = document.createElement("div"),
         slot_el
 
-    token.className = "token"
+    token_el.className = "token"
 
     slot_el = getSlot(column, slot)
     offset_left = slot_el.offsetLeft + "px"
     offset_top = slot_el.offsetTop + "px"
 
-    token.style.left = offset_left
-    token.style.backgroundColor = color
+    token_el.style.left = offset_left
+    token_el.style.backgroundColor = color
 
     setTimeout(function() {
-      token.style.top = offset_top
+      token_el.style.top = offset_top
     }, 100)
 
-    return token
+    return token_el
   }
 
 
@@ -86,10 +86,26 @@ define("app.renderer", function() {
     this.renderToken = function(column, slot, color) {
 
       var board_el = self._board_el,
-          token = createTokenDOM(column, slot, color)
+          token_el = createTokenDOM(column, slot, color)
 
-      self._container.insertBefore(token, board_el)
+      self._container.insertBefore(token_el, board_el)
 
+    }
+
+    this.resetBoard = function() {
+
+      // Arrays are sooo much nicer to handle than NodeLists
+      var token_el_list = document.querySelectorAll("#container .token"),
+          token_el_array = Array.prototype.slice.call(token_el_list)
+
+      token_el_array.forEach(function(token_el, i) {
+
+        var new_top = self._container.offsetTop + self._container.offsetHeight
+        token_el.classList.add("removal")
+
+        setTimeout(function() { token_el.style.top = new_top+"px" }, 50 + i*10)
+        setTimeout(function() { self._container.removeChild(token_el) }, 1050 + i*10)
+      })
     }
 
     this.renderBoard()

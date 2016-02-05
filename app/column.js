@@ -39,6 +39,10 @@ define('app.column', function() {
       this._slots.push(player)
       return this._slots.length
 
+    },
+
+    clear: function() {
+      this._slots.length = 0
     }
 
   }
