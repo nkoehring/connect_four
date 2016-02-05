@@ -15,7 +15,7 @@ define('test.column', ['app.column'], function(Column) {
       ok( column.length === 0,              "is initially empty" )
       ok( eq(column.slots, allSlotsEmpty),  "slots is a null array" )
       ok( column.insert("X") === 1,         "insert returns new slot length" )
-      ok( eq(column.slots, firstSlotSet),   "slots are filled with nulls" )
+      ok( eq(column.slots, firstSlotSet),   "empty slots are represented by null" )
 
       column.insert("Y")
       column.insert("X")
