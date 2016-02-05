@@ -1,5 +1,29 @@
 define("app.renderer", function() {
 
+  function createTokenDOM(column, slot, color) {
+    var token = document.createElement("div"),
+        column_el,
+        slot_el
+
+    token.className = "token"
+    columnQuery = "#container .board .column:nth-child(" + (column + 1) + ")"
+    slotQuery = columnQuery + " .slot:nth-child(" + (slot + 1) + ")"
+
+    slot_el = document.querySelector(slotQuery)
+
+    offset_left = slot_el.offsetLeft + "px"
+    offset_top = slot_el.offsetTop + "px"
+
+    token.style.left = offset_left
+    token.style.backgroundColor = color
+
+    setTimeout(function() {
+      token.style.top = offset_top
+    }, 100)
+
+    return token
+  }
+
 
   function createSlotDOM() {
 
@@ -81,12 +105,13 @@ define("app.renderer", function() {
 
       if (this._first) {
         this._preRender()
+        this._first = false
       }
 
       var board = this._board,
           board_el = this._board_el
 
-      console.log("would render")
+      board_el.insertBefore(createTokenDOM(0, 5, "#F66"), board_el.firstChild)
 
     }
 

@@ -1,6 +1,7 @@
 #container .board {
   width: 900px;
   margin: auto;
+  margin-top: 50px;
   padding: 4px 0 0 4px;
   border: 4px solid silver;
 }
@@ -20,3 +21,17 @@
   background: transparent url(/slot.png) center no-repeat;
   background-size: contain; /* slot.png is 256x256 for hires screens */
 }
+
+#container .token {
+  position: absolute;
+  transition: top 1s ease-out;
+  top: 0;
+  left: 0;
+  width: 110px;
+  height: 110px;
+  margin: 5px;
+  border: 4px inset silver;
+  border-radius: 62px;
+  background: #999;
+}
+
