@@ -6,6 +6,8 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
   function Board(width, height) {
 
+    var self = this
+
     this._width = width
     this._height = height
 
@@ -19,6 +21,46 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     for(var i = 0; i < width; i++) {
       this._columns[i] = new Column(height)
+    }
+
+    this.move = function(column_index) {
+
+      var column = self._columns[column_index],
+          used_slots
+
+      // do not do anything if move is invalid
+      if (!column || column.full) {
+        console.log(column ? "full" : "invalid")
+        return false
+      }
+
+      used_slots = column.insert(self.current_player)
+
+      // switch to other player
+      self._current_player_index = (self._current_player_index + 1) % 2
+
+      if (self._move_callback) {
+        self._move_callback(
+          column_index,
+          self._height - used_slots,
+          self.current_player
+        )
+      }
+
+      return self.current_player
+
+    }
+
+    this.clear = function() {
+
+      self._columns.forEach(function(column) {
+        column.clear()
+      })
+
+      if (self._clear_callback) {
+        self._clear_callback()
+      }
+
     }
 
   }
@@ -104,46 +146,6 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     get full() {
       return this._columns.every(function(column) { return column.full })
-    },
-
-    move: function(column_index) {
-
-      var column = this._columns[column_index],
-          used_slots
-
-      // do not do anything if move is invalid
-      if (!column || column.full) {
-        console.log(column ? "full" : "invalid")
-        return false
-      }
-
-      used_slots = column.insert(this.current_player)
-
-      // switch to other player
-      this._current_player_index = (this._current_player_index + 1) % 2
-
-      if (this._move_callback) {
-        this._move_callback(
-          column_index,
-          this._height - used_slots,
-          this.current_player
-        )
-      }
-
-      return this.current_player
-
-    },
-
-    clear: function() {
-
-      this._columns.forEach(function(column) {
-        column.clear()
-      })
-
-      if (this._clear_callback) {
-        this._clear_callback()
-      }
-
     }
 
   }
