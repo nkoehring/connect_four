@@ -33,6 +33,7 @@
   border: 4px inset silver;
   border-radius: 62px;
   background: #999;
+  pointer-events: none;
 }
 .token.removal {
   transition: top .5s ease-out;
