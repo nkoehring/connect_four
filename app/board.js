@@ -23,6 +23,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       this._columns[i] = new Column(height)
     }
 
+
     this.move = function(column_index) {
 
       var column = self._columns[column_index],
@@ -36,9 +37,6 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
       used_slots = column.insert(self.current_player)
 
-      // switch to other player
-      self._current_player_index = (self._current_player_index + 1) % 2
-
       if (self._move_callback) {
         self._move_callback(
           column_index,
@@ -47,9 +45,12 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
         )
       }
 
-      return self.current_player
+      // switch to other player
+      self._current_player_index = (self._current_player_index + 1) % 2
+      return self.current_player // actually the next player
 
     }
+
 
     this.clear = function() {
 
@@ -62,6 +63,7 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       }
 
     }
+
 
   }
 
