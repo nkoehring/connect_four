@@ -5,6 +5,7 @@ include(['app.board', 'app.renderer'], function(Board, Renderer) {
 
   var container = document.getElementById("container"),
       presentation_mode = true,
+      presentation_timeout,
       renderer,
       board
 
@@ -17,38 +18,77 @@ include(['app.board', 'app.renderer'], function(Board, Renderer) {
   }
 
   board = new Board(COLUMN_COUNT, COLUMN_HEIGHT)
-  renderer = new Renderer(container, board)
+  renderer = new Renderer(container, board, clickHandler)
 
   board.move_callback = renderer.renderToken
   board.clear_callback = renderer.resetBoard
+
   board.winning_callback = function(player) {
+
     console.log(player, "wins!")
+
     if (presentation_mode) {
-      presentation_mode = false
-      setTimeout(function() {
-        presentation_mode = true
-        board.clear()
-        presentationStep()
-      }, 2000)
+
+      stopPresentation()
+      startPresentation(2000)
+
     }
   }
+
+
+  function clickHandler() {
+
+    if (presentation_mode) {
+      stopPresentation(true)
+    }
+
+    board.move(this)
+  }
+
+
+  function startPresentation(t) {
+
+    if (!t && t !== 0) {
+      t = 0
+    }
+
+    setTimeout(function() {
+      presentation_mode = true
+      board.clear()
+      presentationStep()
+    }, t)
+
+  }
+
+
+  function stopPresentation(clear_board) {
+
+    presentation_mode = false
+    clearTimeout(presentation_timeout)
+
+    if (clear_board) {
+      board.clear()
+    }
+
+  }
+
 
   function presentationStep() {
 
     if(board.full) {
-      board.clear()
+      stopPresentation()
     }
 
     var next_column = Math.round(Math.random()*10) % COLUMN_COUNT
     board.move(next_column)
     
     if(presentation_mode) {
-      setTimeout(function() { presentationStep() }, 500)
+      presentation_timeout = setTimeout(function() { presentationStep() }, 500)
     }
 
   }
 
-  presentationStep()
+  startPresentation(1000)
 
 })
 
