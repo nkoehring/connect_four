@@ -41,6 +41,7 @@ define('test.board', ['app.board'], function(Board) {
 
       ok( callback.called.length === 2,         "calls clear callback" )
       ok( board.columns[0].length === 0,        "clear actually clears" )
+      ok( board.current_player === "green",     "clear resets player" )
 
     })
 

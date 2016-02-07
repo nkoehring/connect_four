@@ -55,6 +55,8 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     this.clear = function() {
 
+      self._current_player_index = 0
+
       self._columns.forEach(function(column) {
         column.clear()
       })
