@@ -1,4 +1,6 @@
-define("app.renderer", function() {
+define("app.renderer", ["app.toolkit"], function(Toolkit) {
+
+  var isValidCallback = Toolkit.isValidCallback
 
 
   function getSlot(m, n) {
@@ -41,7 +43,7 @@ define("app.renderer", function() {
   }
 
 
-  function createColumnDOM(height) {
+  function createColumnDOM(height, clickHandler) {
 
     var column = document.createElement("div")
     column.className = "column"
@@ -50,18 +52,25 @@ define("app.renderer", function() {
       column.appendChild( createSlotDOM() )
     }
 
+    if (isValidCallback(clickHandler)) {
+      column.addEventListener("click", clickHandler)
+    }
+
     return column
     
   }
 
 
-  function createBoardDOM(width, height) {
+  function createBoardDOM(width, height, clickHandler) {
 
     var board = document.createElement("div")
+
     board.className = "board"
 
-    while(width--) {
-      board.appendChild( createColumnDOM(height) )
+    for(var c = 0; c < width; c++) { // pun alarm!
+      board.appendChild(
+        createColumnDOM(height, clickHandler.bind(c))
+      )
     }
 
     return board
@@ -69,21 +78,7 @@ define("app.renderer", function() {
   }
 
 
-  function createSetupOverlayDOM() {
-
-    var overlay = document.createElement("div")
-    board.className = "board"
-
-    while(width--) {
-      board.appendChild( createColumnDOM(height) )
-    }
-
-    return board
-    
-  }
-
-
-  function Renderer(container, board) {
+  function Renderer(container, board, clickHandler) {
 
     var self = this
 
@@ -92,7 +87,7 @@ define("app.renderer", function() {
 
     this.renderBoard = function() {
 
-      self._board_el = createBoardDOM(self.width, self.height)
+      self._board_el = createBoardDOM(self.width, self.height, clickHandler)
       self._container.appendChild(self._board_el)
 
     }
