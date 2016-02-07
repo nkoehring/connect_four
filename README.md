@@ -27,6 +27,11 @@ Barbe](https://github.com/CapMousse/include.js).
 
 I use [kludjs](https://bitbucket.org/zserge/klud.js/) for testing.
 
+## known bugs
+
+* There is still a bug in the solver when actual players play.
+* In Firefox, the board moves a pixel on reset, so that tokens look misplaced.
+
 ## about
 
 This software is distributed under the MIT license.
