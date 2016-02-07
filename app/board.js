@@ -31,7 +31,6 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
       // do not do anything if move is invalid
       if (!column || column.full) {
-        console.log(column ? "full" : "invalid")
         return false
       }
 
@@ -44,6 +43,8 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
           self.current_player
         )
       }
+
+      self.checkFourInRow(column_index, used_slots - 1)
 
       // switch to other player
       self._current_player_index = (self._current_player_index + 1) % 2
@@ -64,6 +65,64 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
 
     }
 
+
+    this.checkFourInRow = function(x,y) {
+
+      var four_in_a_row = {},
+          columns = self._columns,
+          //player = self.current_player,
+          player = self._columns[x].slots[y],
+          column = columns[x].slots,
+          row = columns.map(function(column) { return column.slots[y] }),
+          diagonal1 = [], // bottom up
+          diagonal2 = [], // top down
+          short_to_start = x < y ? x : y, // needed to find the diagonal start
+          short_to_end = width - x - 1 < y ? width - x - 1 : y,
+          x_, y_, tmp
+
+      // diagonal1 from bottom to top right (0,0 is bottom left)
+      x_ = x - short_to_start,
+      y_ = y - short_to_start
+
+      while(x_ < width && y_ < height) {
+        diagonal1.push(columns[x_++].slots[y_++])
+      }
+
+      // diagonal2 from bottom to top left
+      x_ = x + short_to_end,
+      y_ = y - short_to_end
+
+      while(x_ && y_ < height) {
+        diagonal2.push(columns[x_--].slots[y_++])
+      }
+
+      column = column.filter(function(t,i,arr) {
+        return t == player && arr[i+1] == player
+      })
+
+      row = row.filter(function(t,i,arr) {
+        return t == player && arr[i+1] == player
+      })
+
+      diagonal1 = diagonal1.filter(function(t,i,arr) {
+        return t == player && arr[i+1] == player
+      })
+
+      diagonal2 = diagonal2.filter(function(t,i,arr) {
+        return t == player && arr[i+1] == player
+      })
+
+      if (column.length >= 3 || row.length >= 3 ||
+          diagonal1.length >= 3 || diagonal2.length >= 3) {
+
+        if(this._winning_callback) {
+          this._winning_callback(player)
+        }
+
+        return player
+      }
+
+    }
 
   }
 

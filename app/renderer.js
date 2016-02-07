@@ -69,6 +69,20 @@ define("app.renderer", function() {
   }
 
 
+  function createSetupOverlayDOM() {
+
+    var overlay = document.createElement("div")
+    board.className = "board"
+
+    while(width--) {
+      board.appendChild( createColumnDOM(height) )
+    }
+
+    return board
+    
+  }
+
+
   function Renderer(container, board) {
 
     var self = this

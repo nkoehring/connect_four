@@ -21,6 +21,17 @@ include(['app.board', 'app.renderer'], function(Board, Renderer) {
 
   board.move_callback = renderer.renderToken
   board.clear_callback = renderer.resetBoard
+  board.winning_callback = function(player) {
+    console.log(player, "wins!")
+    if (presentation_mode) {
+      presentation_mode = false
+      setTimeout(function() {
+        presentation_mode = true
+        board.clear()
+        presentationStep()
+      }, 2000)
+    }
+  }
 
   function presentationStep() {
 
