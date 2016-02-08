@@ -39,3 +39,60 @@
   transition: top .5s ease-out;
 }
 
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#overlay .wrapper {
+  width: 800px;
+  margin: 10% auto;
+  border: 4px solid black;
+  background: rgba(255, 255, 255, .75);
+  color: black;
+  text-align: center;
+  transition: margin .2s ease-out;
+}
+
+#overlay.game-mode .wrapper {
+  margin: 0 auto;
+  border: none;
+}
+
+#overlay.game-mode #introduction {
+  display: none;
+}
+
+#player1, #player2 {
+  width: 2em;
+  height: 2em;
+  margin-right: 2em;
+  vertical-align: middle;
+}
+
+#start {
+  height: 2em;
+  vertical-align: middle;
+}
+
+#config {
+  margin: 1em 0;
+}
+
+#player1wins, #player2wins {
+  display: none;
+}
+
+#overlay.player1wins #introduction,
+#overlay.player2wins #introduction {
+  display: none;
+}
+
+#overlay.player1wins #player1wins {
+  display: block;
+}
+#overlay.player2wins #player2wins {
+  display: block;
+}

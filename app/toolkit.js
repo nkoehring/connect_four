@@ -10,9 +10,18 @@ define('app.toolkit', function() {
     return typeof callback === "function"
   }
 
+  function parseTemplateFn(fn) {
+
+    // source: https://github.com/x-tag/core/blob/master/src/core.js#L285
+    var unwrap = /\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)\s*\*\//;
+    return unwrap.exec(fn.toString())[1]
+
+  }
+
   return {
     isValidPlayer: isValidPlayer,
-    isValidCallback: isValidCallback
+    isValidCallback: isValidCallback,
+    parseTemplateFn: parseTemplateFn
   }
 
 })

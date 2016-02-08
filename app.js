@@ -18,31 +18,56 @@ include(['app.board', 'app.renderer'], function(Board, Renderer) {
   }
 
   board = new Board(COLUMN_COUNT, COLUMN_HEIGHT)
-  renderer = new Renderer(container, board, clickHandler)
+  renderer = new Renderer(container, board, onColumnClick, onStartClick)
 
   board.move_callback = renderer.renderToken
   board.clear_callback = renderer.resetBoard
 
   board.winning_callback = function(player) {
 
-    console.log(player, "wins!")
-
     if (presentation_mode) {
 
       stopPresentation()
       startPresentation(2000)
 
+    } else {
+
+      if (player === 0) {
+        renderer.showPlayer1wins()
+      } else {
+        renderer.showPlayer2wins()
+      }
+
+      document.getElementById("start").value = "play again"
+
     }
+
   }
 
 
-  function clickHandler() {
+  function onColumnClick() {
+    board.move(this)
+  }
+
+
+  function onStartClick() {
+
+    var player1_color = document.getElementById("player1").value,
+        player2_color = document.getElementById("player2").value
+
+    board.player_one = player1_color
+    board.player_two = player2_color
 
     if (presentation_mode) {
       stopPresentation(true)
+    } else {
+      board.clear()
     }
 
-    board.move(this)
+    document.getElementById("start").value = "reset"
+
+    renderer.hideOverlay()
+
   }
 
 

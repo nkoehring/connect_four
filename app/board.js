@@ -117,8 +117,8 @@ define('app.board', ['app.column', 'app.toolkit'], function(Column, Toolkit) {
       if (column.length >= 3 || row.length >= 3 ||
           diagonal1.length >= 3 || diagonal2.length >= 3) {
 
-        if(this._winning_callback) {
-          this._winning_callback(player)
+        if(self._winning_callback) {
+          self._winning_callback(self._current_player_index)
         }
 
         return player
